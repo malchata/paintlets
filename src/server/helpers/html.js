@@ -15,6 +15,7 @@ export default function (metadata, route, component, assets) {
           ${metadata.title} &mdash; Paintlets!
         </title>
         <script>document.documentElement.classList.remove("no-js")</script>
+        <link rel="stylesheet" href="${assets.commons.css}">
       </head>
       <body>
         <main>
@@ -23,19 +24,6 @@ export default function (metadata, route, component, assets) {
           </div>
         </main>
       </body>
-      <script>
-          var scriptEl = document.createElement("script");
-
-          if ("noModule" in scriptEl) {
-            scriptEl.src = "/js/${assets.modern["./src/client/routes/home.js"]}";
-            scriptEl.type = "module";
-          } else {
-            scriptEl.src = "/js/${assets.legacy["./src/client/routes/home.js"]}";
-            scriptEl.defer = true;
-          }
-
-          document.body.appendChild(scriptEl);
-      </script>
     </html>
   `;
 }

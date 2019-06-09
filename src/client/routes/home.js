@@ -1,7 +1,7 @@
 import { h, render } from "preact";
 import Router from "preact-router";
-import PaintletList from "../components/PaintletList.js";
-import worklets from "../../server/worklets.js";
+import PaintletList from "Components/PaintletList";
+import worklets from "../../server/worklets";
 
 render(<Router>
   <PaintletList path="/" worklets={worklets} default />

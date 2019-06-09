@@ -1,7 +1,6 @@
 // Built-ins
 import { readFile } from "fs";
 import { resolve } from "path";
-import { promisify } from "util";
 
 // Vendors
 import express from "express";
@@ -9,14 +8,14 @@ import compression from "compression";
 import { h } from "preact";
 
 // App-specific
-import { IS_PRODUCTION } from "./helpers/constants.js";
-import generateManifest from "./helpers/generate-manifest.js";
-import html from "./helpers/html.js";
-import PaintletList from "../client/components/PaintletList.js";
-import worklets from "./worklets.js";
+import { IS_PRODUCTION } from "Helpers/constants";
+import html from "Helpers/html";
+import PaintletList from "Components/PaintletList";
+import worklets from "./worklets";
+
+console.dir(IS_PRODUCTION);
 
 // Init express app
-const readFileAsync = promisify(readFile);
 const app = express();
 
 // Static content paths
@@ -32,10 +31,11 @@ if (IS_PRODUCTION) {
 
 // Spin up web server
 app.listen(IS_PRODUCTION ? "80" : "8080", () => {
-  const legacyAssets = resolve(process.cwd(), "dist", "server", "assets-legacy.json");
-  const modernAssets = resolve(process.cwd(), "dist", "server", "assets-modern.json");
+  readFile(resolve(process.cwd(), "dist", "server", "assets.json"), (error, data) => {
+    if (error) {
+      throw error;
+    }
 
-  Promise.all([readFileAsync(legacyAssets), readFileAsync(modernAssets)]).then(assets => {
     app.get("/", (req, res) => {
       const metadata = {
         title: "Home"
@@ -43,9 +43,7 @@ app.listen(IS_PRODUCTION ? "80" : "8080", () => {
 
       res.set("Content-Type", "text/html");
       res.status(200);
-      res.send(html(metadata, "/", <PaintletList worklets={worklets} />, generateManifest(assets)));
+      res.send(html(metadata, "/", <PaintletList worklets={worklets} />, JSON.parse(data.toString())));
     });
-  }).catch(error => {
-    throw error;
   });
 });

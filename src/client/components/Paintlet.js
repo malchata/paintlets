@@ -2,8 +2,8 @@
 import { h, render, Component } from "preact";
 
 // App-specific
-// import "./Paintlet.css";
-import Property from "./Property.js";
+import PaintletStyles from "Components/Paintlet.css";
+import Property from "Components/Property";
 
 class Paintlet extends Component {
   constructor (props) {

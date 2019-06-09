@@ -2,8 +2,8 @@
 import { h, render } from "preact";
 
 // App-specific
-// import "./PaintletList.css";
-import Paintlet from "./Paintlet.js";
+import PaintletListStyles from "Components/PaintletList.css";
+import Paintlet from "Components/Paintlet";
 
 const PaintletList = ({ worklets }) => {
   return (

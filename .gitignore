@@ -3,3 +3,4 @@ node_modules
 npm-debug.log
 Thumbs.db
 dist
+compilation-stats.json

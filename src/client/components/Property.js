@@ -2,7 +2,7 @@
 import { h, render, Component } from "preact";
 
 // App-specific
-// import "./Property.css";
+import PropertyStyles from "Components/Property.css";
 
 class Property extends Component {
   constructor (props) {
