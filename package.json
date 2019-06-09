@@ -1,0 +1,48 @@
+{
+  "name": "paintlets",
+  "version": "1.0.0",
+  "description": "A fun little gallery of paint worklets!",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "npm run clean && npx rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malchata/paintlets.git"
+  },
+  "keywords": [
+    "css",
+    "houdini",
+    "paint",
+    "worklets"
+  ],
+  "author": "Jeremy L. Wagner <jeremy.l.wagner@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/malchata/paintlets/issues"
+  },
+  "homepage": "https://github.com/malchata/paintlets#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.13.0",
+    "rollup": "^1.14.4",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-entrypoint-hashmanifest": "^0.1.2",
+    "rollup-plugin-node-resolve": "^5.0.1",
+    "rollup-plugin-terser": "^5.0.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "preact": "^8.4.2",
+    "preact-render-to-string": "^4.1.0",
+    "preact-router": "^2.6.1"
+  }
+}
