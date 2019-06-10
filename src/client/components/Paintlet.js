@@ -10,10 +10,7 @@ class Paintlet extends Component {
     super(props);
 
     this.state = {
-      customProperties: props.customProperties,
-      paintletStyles: {
-        backgroundImage: `paint(${props.workletName})`
-      }
+      customProperties: props.customProperties
     };
 
     this.updateCustomProperty = this.updateCustomProperty.bind(this);
@@ -40,16 +37,11 @@ class Paintlet extends Component {
   }
 
   updateCustomProperty (customPropertyName, value) {
-    const customPropertyKey = `--${this.props.workletName}-${customPropertyName}`;
     let customProperties = { ...this.state.customProperties };
-    let paintletStyles = { ...this.state.paintletStyles };
-
     customProperties[customPropertyName].value = value;
-    paintletStyles[customPropertyKey] = value;
 
     this.setState({
-      customProperties,
-      paintletStyles
+      customProperties
     });
   }
 
@@ -59,9 +51,7 @@ class Paintlet extends Component {
         <style>{`
           .paintlet.${this.props.workletName} > .preview {
             background: paint(${this.props.workletName});
-            ${Object.keys(this.state.customProperties).map(customPropertyName => {
-              return `--${this.props.workletName}-${customPropertyName}: ${this.state.customProperties[customPropertyName].value}`
-            }).join(";")}
+            ${Object.keys(this.state.customProperties).map(customPropertyName => `--${this.props.workletName}-${customPropertyName}: ${this.state.customProperties[customPropertyName].value}`).join(";")}
           }
         `}</style>
         <h2>{this.props.workletName}</h2>
