@@ -1,3 +1,7 @@
 .property > input {
   font-family: monospace;
 }
+
+.preview {
+  height: 320px;
+}

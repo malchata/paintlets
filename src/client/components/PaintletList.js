@@ -2,15 +2,13 @@
 import { h, render } from "preact";
 
 // App-specific
-import PaintletListStyles from "Components/PaintletList.css";
+import "Components/PaintletList.css";
 import Paintlet from "Components/Paintlet";
 
-const PaintletList = ({ worklets }) => {
-  return (
-    <ol className="paintlet-list">
-      {Object.keys(worklets).map(workletName => <Paintlet key={workletName} name={workletName} properties={worklets[workletName]} />)}
-    </ol>
-  );
-};
+const PaintletList = ({ worklets }) => (
+  <ol className="paintlet-list">
+    {Object.keys(worklets).map(workletName => <Paintlet key={workletName} workletName={workletName} customProperties={worklets[workletName]} />)}
+  </ol>
+);
 
 export default PaintletList;

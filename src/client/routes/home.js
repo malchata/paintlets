@@ -5,4 +5,4 @@ import worklets from "../../server/worklets";
 
 render(<Router>
   <PaintletList path="/" worklets={worklets} default />
-</Router>, document.querySelector("main"), document.querySelector("main > div"));
+</Router>, document.querySelector("#app"), document.querySelector("#app > div"));

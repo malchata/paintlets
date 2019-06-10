@@ -13,8 +13,6 @@ import html from "Helpers/html";
 import PaintletList from "Components/PaintletList";
 import worklets from "./worklets";
 
-console.dir(IS_PRODUCTION);
-
 // Init express app
 const app = express();
 
