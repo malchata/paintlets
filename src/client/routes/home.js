@@ -1,8 +1,7 @@
 import { h, render } from "preact";
 import Router from "preact-router";
-import PaintletList from "Components/PaintletList";
-import worklets from "../../server/worklets";
+import Home from "Components/Home";
 
 render(<Router>
-  <PaintletList path="/" worklets={worklets} default />
+  <Home path="/" default />
 </Router>, document.querySelector("#app"), document.querySelector("#app > div"));

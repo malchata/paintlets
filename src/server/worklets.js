@@ -2,27 +2,27 @@ export default {
   lines: {
     "tile-size": {
       syntax: "number",
-      value: 8.0
+      value: 48.0
     },
     "color": {
       syntax: "color",
-      value: "#2a2b2a"
+      value: "#f0f"
     },
     "weight": {
       syntax: "number",
-      value: 0.25
+      value: 1
     },
     "probability": {
       syntax: "number",
-      value: 0.25
+      value: 0.2
     },
     "direction": {
       syntax: "integer",
       value: 0
     },
-    "alpha": {
-      syntax: "number",
-      value: 1.0
+    "crosshatch": {
+      syntax: "integer",
+      value: 1
     }
   },
   randots: {

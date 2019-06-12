@@ -11,7 +11,7 @@ registerPaint("lines", class LinesPainter {
       "--lines-weight",
       "--lines-probability",
       "--lines-direction",
-      "--lines-alpha"
+      "--lines-crosshatch"
     ];
   }
 
@@ -22,12 +22,11 @@ registerPaint("lines", class LinesPainter {
     const probability = parseFloat(properties.get("--lines-probability"));
     const crosshatchProbability = probability + (Math.abs(probability - 1) / 2);
     const direction = !!parseInt(properties.get("--lines-direction"));
-    const alpha = parseFloat(properties.get("--lines-alpha"));
+    const crosshatch = !!parseInt(properties.get("--lines-crosshatch"));
 
     // Set styles
     ctx.lineWidth = weight;
     ctx.strokeStyle = color;
-    ctx.globalAlpha = alpha;
     ctx.lineCap = "butt";
 
     for (let y = 0; y < (geom.height / tileSize); y++) {
@@ -38,12 +37,14 @@ registerPaint("lines", class LinesPainter {
       }
     }
 
-    let crosshatchTilesize = tileSize / 4;
+    if (crosshatch) {
+      let crosshatchTilesize = tileSize / 4;
 
-    for (let y = 0; y < (geom.height / crosshatchTilesize); y++) {
-      for (let x = 0; x < (geom.width / crosshatchTilesize); x++) {
-        if (Math.random() >= crosshatchProbability) {
-          this.line(ctx, x, y, crosshatchTilesize, !direction);
+      for (let y = 0; y < (geom.height / crosshatchTilesize); y++) {
+        for (let x = 0; x < (geom.width / crosshatchTilesize); x++) {
+          if (Math.random() >= crosshatchProbability) {
+            this.line(ctx, x, y, crosshatchTilesize, !direction);
+          }
         }
       }
     }

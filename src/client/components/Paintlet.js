@@ -45,21 +45,27 @@ class Paintlet extends Component {
     });
   }
 
+  customPropertiesToStyles () {
+    return Object.keys(this.state.customProperties).map(customPropertyName => `--${this.props.workletName}-${customPropertyName}: ${this.state.customProperties[customPropertyName].value}`).join(";");
+  }
+
   render () {
     return (
       <li className={`paintlet ${this.props.workletName}`}>
         <style>{`
           .paintlet.${this.props.workletName} > .preview {
-            background: paint(${this.props.workletName});
-            ${Object.keys(this.state.customProperties).map(customPropertyName => `--${this.props.workletName}-${customPropertyName}: ${this.state.customProperties[customPropertyName].value}`).join(";")}
+            background-image: paint(${this.props.workletName});
+            ${this.customPropertiesToStyles()}
           }
         `}</style>
-        <h2>{this.props.workletName}</h2>
         <section className="preview">
         </section>
-        <section className="custom-properties">
+        <section className="info">
+          <h3>{this.props.workletName}</h3>
+        </section>
+        <section className="properties">
           {Object.keys(this.state.customProperties).map(customPropertyName => {
-            const customProperty = this.state.customProperties[customPropertyName];
+            const { syntax, value } = this.state.customProperties[customPropertyName];
 
             return (
               <CustomProperty
@@ -67,8 +73,8 @@ class Paintlet extends Component {
                 key={customPropertyName}
                 id={`${this.props.workletName}-${customPropertyName}`}
                 name={customPropertyName}
-                syntax={customProperty.syntax}
-                value={customProperty.value}
+                syntax={syntax}
+                value={value}
               />
             );
           })}

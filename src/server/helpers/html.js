@@ -2,7 +2,7 @@
 import render from "preact-render-to-string";
 
 export default function (metadata, route, component, assets) {
-  let includeScript = "var moduleSupport = \"noModule\" in HTMLScriptElement.prototype";
+  let includeScript = "var moduleSupport = \"noModule\" in HTMLScriptElement.prototype;";
 
   includeScript += Object.keys(assets).map(assetKey => `
     ${assetKey}Script = document.createElement("script");

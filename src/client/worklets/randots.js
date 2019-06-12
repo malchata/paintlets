@@ -19,6 +19,7 @@ class Randots {
     const tileSize = parseInt(properties.get("--randots-tile-size"));
     const dots = Math.ceil(geom.width / tileSize);
     const lines = Math.ceil(geom.height / tileSize);
+    const alpha = parseFloat(properties.get("--randots-starting-alpha"));
     const alphaIncrement = parseFloat(properties.get("--randots-alpha-increment"));
     const probabilityIncrement = parseFloat(properties.get("--randots-probability-increment"));
     const hexColor = properties.get("--randots-fill-color").toString().split("#").pop();
@@ -27,11 +28,11 @@ class Randots {
       r: parseInt(`${hexColor[0]}${hexColor[1]}`, 16),
       g: parseInt(`${hexColor[2]}${hexColor[3]}`, 16),
       b: parseInt(`${hexColor[4]}${hexColor[5]}`, 16),
-      a: parseFloat(properties.get("--randots-starting-alpha"))
+      a: alpha
     };
 
     for (let line = 0; line < lines; line += tileSize) {
-      ctx.fillStyle = `rgb(${colorParts.r},${colorParts.g},${colorParts.b},${colorParts.a})`;
+      ctx.fillStyle = `rgb(${colorParts.r}, ${colorParts.g}, ${colorParts.b}, ${colorParts.a})`;
 
       for (let dot = 0; dot < dots; dot += tileSize) {
         if (Math.random() < probability) {

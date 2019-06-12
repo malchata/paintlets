@@ -6,9 +6,9 @@ import "Components/PaintletList.css";
 import Paintlet from "Components/Paintlet";
 
 const PaintletList = ({ worklets }) => (
-  <ol className="paintlet-list">
-    {Object.keys(worklets).map(workletName => <Paintlet key={workletName} workletName={workletName} customProperties={worklets[workletName]} />)}
-  </ol>
+  <ul className="paintlet-list">
+    {Object.keys(worklets).map((workletName, index) => <Paintlet key={index} workletName={workletName} customProperties={worklets[workletName]} />)}
+  </ul>
 );
 
 export default PaintletList;

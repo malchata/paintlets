@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+p,
+pre,
+a,
+code,
+em,
+img,
+strong,
+b,
+u,
+i,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+figure,
+figcaption,
+footer,
+header,
+menu,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  background: #03120e;
+  padding: 1rem;
+  font-family: "Operator Mono", "Consolas", monospace;
+  font-size: 16px;
+}
+
+input,
+button {
+  appearance: none;
+}
+
+ol,
+ul {
+  list-style: none;
+}

@@ -26,7 +26,7 @@ class CustomProperty extends Component {
   render () {
     return (
       <fieldset className="property">
-        <label htmlFor={this.props.id}>{this.props.name}</label>
+        <label htmlFor={this.props.id}>{this.props.name}:&nbsp;</label>
         <input onChange={this.onCustomPropertyChange} ref={input => this.customPropertyInput = input} name={this.props.name} type="text" id={this.props.id} value={this.props.value} />
       </fieldset>
     );
