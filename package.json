@@ -10,7 +10,8 @@
     "build:dev": "npm run clean && npx webpack --progress && npm run copy:worklets",
     "build:stats": "NODE_ENV=production npx webpack --progress --profile --json > compilation-stats.json",
     "build:worklets": "npm run copy:worklets && find ./dist/client/worklets -type f -name '*.js' | xargs -P 16 -I {} npx terser -c -m -o {} --ecma 8 {}",
-    "start": "node ./dist/server/index.js"
+    "start": "npm run build && npm run server",
+    "server": "node ./dist/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -43,13 +44,14 @@
     "cssnano": "^4.1.10",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.13.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.7.0",
     "null-loader": "^3.0.0",
     "postcss-loader": "^3.0.0",
     "rimraf": "^2.6.3",
-    "webpack": "^4.33.0",
+    "webpack": "^4.34.0",
     "webpack-cli": "^3.3.4",
-    "webpack-deep-scope-plugin": "^1.6.1",
     "webpack-node-externals": "^1.7.2",
     "worker-loader": "^2.0.0"
   },
@@ -57,8 +59,7 @@
     "@babel/polyfill": "^7.4.4",
     "compression": "^1.7.4",
     "express": "^4.17.1",
-    "preact": "^8.4.2",
-    "preact-render-to-string": "^4.1.0",
-    "preact-router": "^2.6.1"
+    "preact": "^10.0.0-beta.2",
+    "preact-render-to-string": "^5.0.3"
   }
 }

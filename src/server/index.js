@@ -10,7 +10,7 @@ import { h } from "preact";
 // App-specific
 import { IS_PRODUCTION } from "Helpers/constants";
 import html from "Helpers/html";
-import PaintletList from "Components/PaintletList";
+import Home from "Components/Home";
 import worklets from "./worklets";
 
 // Init express app
@@ -41,7 +41,7 @@ app.listen(IS_PRODUCTION ? "80" : "8080", () => {
 
       res.set("Content-Type", "text/html");
       res.status(200);
-      res.send(html(metadata, "/", <PaintletList worklets={worklets} />, JSON.parse(data.toString())));
+      res.send(html(metadata, "/", <Home worklets={worklets} />, JSON.parse(data.toString())));
     });
   });
 });

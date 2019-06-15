@@ -6,7 +6,6 @@ import path from "path";
 // webpack-specific
 import AssetsWebpackPlugin from "assets-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import WebpackDeepScopePlugin from "webpack-deep-scope-plugin";
 
 export const mode = process.env.NODE_ENV === "production" ? "production" : "development";
 export const src = (...args) => path.resolve(process.cwd(), "src", ...args);
@@ -63,17 +62,14 @@ export const commonClientConfig = {
   ...commonConfig
 };
 
-if (isProd) {
-  commonClientConfig.plugins.push(new WebpackDeepScopePlugin.default());
-}
-
 export const commonClientLoaders = [
   {
-    test: /\.css$/i,
+    test: /\.(c|le)ss$/i,
     use: [
       MiniCssExtractPlugin.loader,
       "css-loader",
-      "postcss-loader"
+      "postcss-loader",
+      "less-loader"
     ]
   }
 ];

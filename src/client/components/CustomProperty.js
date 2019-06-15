@@ -1,8 +1,8 @@
 // Vendors
-import { h, render, Component } from "preact";
+import { h, render, Component, Fragment } from "preact";
 
 // App-specific
-import "Components/CustomProperty.css";
+import "Components/CustomProperty.less";
 
 class CustomProperty extends Component {
   constructor (props) {
@@ -25,10 +25,10 @@ class CustomProperty extends Component {
 
   render () {
     return (
-      <fieldset className="property">
+      <Fragment>
         <label htmlFor={this.props.id}>{this.props.name}:&nbsp;</label>
         <input onChange={this.onCustomPropertyChange} ref={input => this.customPropertyInput = input} name={this.props.name} type="text" id={this.props.id} value={this.props.value} />
-      </fieldset>
+      </Fragment>
     );
   }
 }

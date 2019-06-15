@@ -1,7 +1,6 @@
 import { h, render } from "preact";
-import Router from "preact-router";
+import hydrate from "../helpers/hydrate";
 import Home from "Components/Home";
+import worklets from "../../server/worklets";
 
-render(<Router>
-  <Home path="/" default />
-</Router>, document.querySelector("#app"), document.querySelector("#app > div"));
+hydrate(<Home path="/" worklets={worklets} />, document.getElementById("app"));

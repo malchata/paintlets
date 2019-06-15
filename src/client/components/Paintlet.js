@@ -2,7 +2,7 @@
 import { h, render, Component } from "preact";
 
 // App-specific
-import "Components/Paintlet.css";
+import "Components/Paintlet.less";
 import CustomProperty from "Components/CustomProperty";
 
 class Paintlet extends Component {

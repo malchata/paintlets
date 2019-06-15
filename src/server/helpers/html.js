@@ -33,9 +33,7 @@ export default function (metadata, route, component, assets) {
       </head>
       <body>
         <main id="app">
-          <div>
-            ${render(component)}
-          </div>
+          ${render(component)}
         </main>
         <script>
           (function(document) {

@@ -2,12 +2,11 @@
 import { h, render } from "preact";
 
 // App-specific
-import "Components/reset.css";
-import "Components/Home.css";
+import "Components/reset.less";
+import "Components/Home.less";
 import PaintletList from "Components/PaintletList";
-import worklets from "../../server/worklets";
 
-const Home = () => (
+const Home = ({ worklets }) => (
   <section className="home">
     <hgroup>
       <h1>Paintlets!</h1>

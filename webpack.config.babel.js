@@ -88,7 +88,7 @@ module.exports = [
           ]
         },
         {
-          test: /\.css$/i,
+          test: /\.(c|le)ss$/i,
           use: "null-loader"
         }
       ]
