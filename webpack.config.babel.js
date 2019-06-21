@@ -96,6 +96,7 @@ module.exports = [
     resolve: {
       alias: {
         "Components": src("client", "components"),
+        "Styles": src("client", "styles"),
         "Helpers": src("server", "helpers")
       }
     },

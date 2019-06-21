@@ -29,25 +29,12 @@ export const commonClientConfig = {
   entry: {
     home: src("client", "routes", "home.js")
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendors: {
-          test: /node_modules/i,
-          chunks: "all"
-        },
-        commons: {
-          name: "commons",
-          chunks: "initial"
-        }
-      }
-    }
-  },
   plugins: [
     new AssetsWebpackPlugin({
       filename: "assets.json",
       path: dist("server"),
-      update: true
+      update: true,
+      fileTypes: ["mjs", "js", "jpg"]
     }),
     new MiniCssExtractPlugin({
       filename: `css/${isProd ? "[name].[contenthash:8].css" : "[name].css"}`,
@@ -56,7 +43,8 @@ export const commonClientConfig = {
   ],
   resolve: {
     alias: {
-      "Components": src("client", "components")
+      "Components": src("client", "components"),
+      "Styles": src("client", "styles")
     }
   },
   ...commonConfig

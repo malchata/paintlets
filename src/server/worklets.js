@@ -50,5 +50,23 @@ export default {
       syntax: "number",
       value: 0.0025
     }
+  },
+  circles: {
+    "tile-size": {
+      syntax: "integer",
+      value: 8
+    },
+    "color": {
+      syntax: "color",
+      value: "#38dec2"
+    },
+    "radius-multiplier": {
+      syntax: "number",
+      value: 2.25
+    },
+    "blend-mode": {
+      syntax: "custom-ident",
+      value: "source-over"
+    }
   }
 };

@@ -29,8 +29,7 @@ module.exports = {
         [
           "@babel/preset-env", {
             modules: false,
-            useBuiltIns: "usage",
-            corejs: 2,
+            loose: true,
             targets: "> 0.25%, IE > 10, Firefox ESR, not dead"
           }
         ],
@@ -39,6 +38,9 @@ module.exports = {
             pragma: "h"
           }
         ]
+      ],
+      plugins: [
+        "@babel/plugin-transform-runtime"
       ]
     },
     clientModern: {
@@ -46,6 +48,7 @@ module.exports = {
         [
           "@babel/preset-env", {
             modules: false,
+            loose: true,
             targets: {
               esmodules: true
             }
@@ -73,6 +76,9 @@ module.exports = {
             pragma: "h"
           }
         ]
+      ],
+      plugins: [
+        "@babel/plugin-transform-runtime"
       ]
     }
   }

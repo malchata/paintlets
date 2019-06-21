@@ -29,7 +29,7 @@ export default function (metadata, route, component, assets) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <script>document.documentElement.classList.remove("no-js")</script>
-        <link rel="stylesheet" href="${assets.commons.css}">
+        <link rel="stylesheet" href="${assets.home.css}">
       </head>
       <body>
         <main id="app">

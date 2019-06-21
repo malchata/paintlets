@@ -2,7 +2,7 @@
 import { h, render, Component } from "preact";
 
 // App-specific
-import "Components/Paintlet.less";
+import "Styles/Paintlet.less";
 import CustomProperty from "Components/CustomProperty";
 
 class Paintlet extends Component {
@@ -36,9 +36,9 @@ class Paintlet extends Component {
     }
   }
 
-  updateCustomProperty (customPropertyName, value) {
+  updateCustomProperty (customPropertyName, customPropertyValue) {
     let customProperties = { ...this.state.customProperties };
-    customProperties[customPropertyName].value = value;
+    customProperties[customPropertyName].value = customPropertyValue;
 
     this.setState({
       customProperties

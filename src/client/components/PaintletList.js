@@ -2,7 +2,7 @@
 import { h, render } from "preact";
 
 // App-specific
-import "Components/PaintletList.less";
+import "Styles/PaintletList.less";
 import Paintlet from "Components/Paintlet";
 
 const PaintletList = ({ worklets }) => (
