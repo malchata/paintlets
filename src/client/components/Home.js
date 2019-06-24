@@ -2,7 +2,7 @@
 import { h, render } from "preact";
 
 // App-specific
-import "Styles/reset.less";
+import "Styles/Base.less";
 import "Styles/Home.less";
 import PaintletList from "Components/PaintletList";
 

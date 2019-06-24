@@ -35,7 +35,8 @@ module.exports = {
         ],
         [
           "@babel/preset-react", {
-            pragma: "h"
+            pragma: "h",
+            pragmaFrag: "Fragment"
           }
         ]
       ],
@@ -56,7 +57,8 @@ module.exports = {
         ],
         [
           "@babel/preset-react", {
-            pragma: "h"
+            pragma: "h",
+            pragmaFrag: "Fragment"
           }
         ]
       ]
@@ -73,7 +75,8 @@ module.exports = {
         ],
         [
           "@babel/preset-react", {
-            pragma: "h"
+            pragma: "h",
+            pragmaFrag: "Fragment"
           }
         ]
       ],
