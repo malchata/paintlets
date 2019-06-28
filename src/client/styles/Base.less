@@ -1,3 +1,5 @@
+@import "_variables.less";
+
 * {
   box-sizing: border-box;
 }
@@ -42,17 +44,27 @@ section {
   display: block;
 }
 
-body {
-  line-height: 1;
-  background: #03120e;
-  padding: 1rem;
-  font-family: monospace;
-  font-size: 16px;
+html {
+  font-size: 13.8588133391px;
 }
 
-input,
-button {
+body {
+  line-height: 1;
+  background: var(--black);
+  padding: var(--size-6);
+  font-family: monospace;
+}
+
+input {
   appearance: none;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-family: monospace;
+
+  &[disabled] {
+    opacity: 0.5;
+  }
 }
 
 ol,
@@ -61,6 +73,18 @@ ul {
 }
 
 a {
-  color: #ff92c2;
+  color: var(--accent);
   font-weight: bold;
+}
+
+@media screen and (min-width: 50rem) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 90rem) {
+  html {
+    font-size: 18.472px;
+  }
 }

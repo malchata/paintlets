@@ -1,34 +1,37 @@
 .properties {
-  padding: 1.0217924009rem 0;
+  padding: var(--size-6) 0 0;
   display: grid;
   grid-template-columns: max-content auto;
-  grid-gap: 0.7805900695rem;
+  grid-gap: var(--size-4);
   align-items: baseline;
+  max-width: 35.5rem;
+  width: 100%;
+  margin: 0 auto;
 
   & > label,
   & > input {
-    font-size: 1.3375262528rem;
+    font-size: var(--size-7);
     line-height: 1.309;
     display: block;
   }
 
   & > label {
-    color: #fffbfe;
+    color: var(--white);
     cursor: pointer;
   }
 
   & > input {
     background: transparent;
     border: none;
-    font-family: monospace;
-    padding: .3480199035rem;
-    border-bottom: .125rem solid #a8a8a8;
+    padding: var(--size-2) var(--size-2) var(--size-0);
+    border-bottom: var(--size-0) solid var(--light-grey);
     width: 100%;
-    color: #a8a8a8;
+    color: var(--light-grey);
   }
 
   & > input:focus {
-    outline: .125rem solid #ff92c2;
-    color: #ff92c2;
+    outline: var(--size-0) solid var(--accent);
+    color: var(--accent);
+    border-bottom-color: var(--accent);
   }
 }

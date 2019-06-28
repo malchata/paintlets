@@ -15,11 +15,11 @@ export default {
       },
       weight: {
         syntax: "<number>",
-        value: 1
+        value: 4
       },
       probability: {
         syntax: "<number>",
-        value: 0.2
+        value: 0.25
       },
       direction: {
         syntax: "<integer>",
@@ -77,7 +77,7 @@ export default {
         syntax: "<color>+",
         value: "#e59eff #0094ff #ff8a7f"
       },
-      "amplitude": {
+      amplitude: {
         syntax: "<number>",
         value: 2.25
       },

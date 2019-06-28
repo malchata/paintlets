@@ -11,11 +11,14 @@ class Paintlet extends Component {
 
     this.state = {
       customProperties: props.customProperties,
-      paintAPISupport: true,
-      loading: true
+      paintAPISupported: true,
+      loading: true,
+      error: false,
+      backgroundColor: "#fffbfe"
     };
 
     this.updateCustomProperty = this.updateCustomProperty.bind(this);
+    this.updateBackgroundColor = this.updateBackgroundColor.bind(this);
 
     if (typeof window !== "undefined" && this.props.lazy) {
       this.paintletObserver = new IntersectionObserver((entries, observer) => {
@@ -61,11 +64,16 @@ class Paintlet extends Component {
           this.setState({
             loading: false
           });
+        }).catch(() => {
+          this.setState({
+            loading: false,
+            error: true
+          });
         });
       });
     } else {
       this.setState({
-        paintAPISupport: false,
+        paintAPISupported: false,
         loading: false
       });
     }
@@ -84,33 +92,56 @@ class Paintlet extends Component {
     });
   }
 
+  updateBackgroundColor () {
+    console.dir(this.backgroundColorInput);
+
+    this.setState({
+      backgroundColor: this.backgroundColorInput.value
+    }, () => {
+      this.paintletPreview.style.backgroundColor = this.state.backgroundColor;
+    });
+  }
+
   render () {
+    const { author, workletName } = this.props;
+    const { loading, error, paintAPISupported, backgroundColor, customProperties } = this.state;
+    const backgroundColorFieldName = `paintlet-background-color-${workletName}`;
+
     return (
       <li className="paintlet" ref={paintletRoot => this.paintletRoot = paintletRoot}>
-        <section className={`preview ${this.state.paintAPISupport ? "" : "state-no-support"} ${this.state.loading ? "state-loading" : ""}`} ref={paintletPreview => this.paintletPreview = paintletPreview}>
+        <h3>
+          <a href={`https://github.com/malchata/paintlets/blob/master/src/client/worklets/${workletName}.js`} rel="noopener">{workletName}</a> by <a href={author.website} rel="noopener">{author.screenName}</a>
+        </h3>
+        <section className={`preview ${paintAPISupported ? "" : "state-no-support"} ${loading ? "state-loading" : ""} ${error ? "state-error": ""}`} ref={paintletPreview => this.paintletPreview = paintletPreview}>
           <p className="message-no-support">😫&nbsp;Paint API not supported</p>
           <p className="message-loading">⏳&nbsp;Loading paintlet...</p>
-        </section>
-        <section className="info">
-          <h3>
-            <a href={`https://github.com/malchata/paintlets/blob/master/src/client/worklets/${this.props.workletName}.js`} rel="noopener">{this.props.workletName}</a>
-          </h3>
-          <p>
-            by&nbsp;<a href={this.props.author.website} rel="noopener">{this.props.author.screenName}</a>
-          </p>
+          <p className="message-error">🐜&nbsp;Arrrgh! There was a bug!</p>
+          <fieldset className="controls">
+            <label htmlFor={backgroundColorFieldName}>background-color:</label>
+            <input
+              type="text"
+              onChange={this.updateBackgroundColor}
+              ref={backgroundColorInput => this.backgroundColorInput = backgroundColorInput}
+              value={backgroundColor}
+              id={backgroundColorFieldName}
+              name={backgroundColorFieldName}
+              disabled={error || loading || !paintAPISupported}
+            />
+          </fieldset>
         </section>
         <section className="properties">
-          {Object.keys(this.state.customProperties).map((customPropertyName, key) => {
-            const { syntax, value } = this.state.customProperties[customPropertyName];
+          {Object.keys(customProperties).map((customPropertyName, key) => {
+            const { syntax, value } = customProperties[customPropertyName];
 
             return (
               <CustomProperty
                 onCustomPropertyChange={this.updateCustomProperty}
                 key={key}
-                id={`${this.props.workletName}-${customPropertyName}`}
+                id={`${workletName}-${customPropertyName}`}
                 name={customPropertyName}
                 syntax={syntax}
                 value={value}
+                disabled={error || loading || !paintAPISupported}
               />
             );
           })}

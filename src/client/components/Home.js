@@ -1,10 +1,11 @@
 // Vendors
-import { h, render } from "preact";
+import { h, render, Fragment } from "preact";
 
 // App-specific
 import "Styles/Base.less";
 import "Styles/Home.less";
 import PaintletList from "Components/PaintletList";
+import Footer from "Components/Footer";
 
 const Home = ({ worklets }) => (
   <section className="home">
@@ -13,6 +14,7 @@ const Home = ({ worklets }) => (
       <h2>A gallery of tweakable and downloadable paint worklets!</h2>
     </hgroup>
     <PaintletList worklets={worklets} />
+    <Footer />
   </section>
 );
 

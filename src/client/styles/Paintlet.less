@@ -1,15 +1,37 @@
 .paintlet {
-  border-radius: 0.2658670004rem;
+  padding: 0 0 var(--size-6);
+
+  & > h3 {
+    border-radius: var(--size-3) var(--size-3) 0 0;
+    padding: var(--size-4);
+    background: var(--dark-grey);
+    color: var(--white);
+    font-weight: bold;
+    font-size: var(--size-6);
+    box-shadow: 0 0 var(--size-1) var(--dark-grey);
+    text-align: center;
+
+    & > a {
+      &:hover {
+        color: var(--accent);
+      }
+    }
+  }
 }
 
 .preview {
   height: 256px;
-  height: 38.905775076vh;
-  background-color: #fffbfe;
-  border-radius: 0.4555580537rem 0.4555580537rem 0 0;
+  height: 42.2314872894vh;
+  background-color: var(--white);
+  border-radius: 0 0 var(--size-3) var(--size-3);
   display: flex;
+  flex-flow: column nowrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  contain: strict;
+  border-color: var(--dark-grey);
+  border-width: 0 var(--size-0) var(--size-0);
+  border-style: solid;
 
   &.state-no-support {
     .message-no-support {
@@ -22,36 +44,60 @@
       display: block;
     }
   }
+
+  &.state-error {
+    .message-error {
+      display: block;
+    }
+  }
+
+  &.state-no-support,
+  &.state-loading,
+  &.state-error {
+    justify-content: center;
+
+    .controls {
+      display: none;
+    }
+  }
 }
 
 .message-no-support,
-.message-loading {
+.message-loading,
+.message-error {
   display: none;
-  font-size: 1.3375262528rem;
+  font-size: var(--size-7);
   text-align: center;
-  color: #03120e;
-  font-weight: 700;
+  color: var(--black);
+  font-weight: bold;
 }
 
-.info {
-  padding: 0.4555580537rem;
-  background: #333232;
-  border-radius: 0 0 0.4555580537rem 0.4555580537rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+.controls {
+  padding: var(--size-3);
+  background: var(--dark-grey);
+  border-radius: var(--size-3) var(--size-3) 0 0;
 
-  & > h3 {
-    text-align: center;
-    color: #fffbfe;
-    font-weight: bold;
-    font-size: 1.5279282363rem;
+  & > label,
+  & > input {
+    line-height: 1.309;
+    font-size: var(--size-6);
+    color: var(--white);
   }
 
-  & > p {
-    text-align: center;
-    color: #fffbfe;
-    font-weight: bold;
-    font-size: 1.3375262528rem;
+  & > input {
+    background: transparent;
+    border: none;
+    padding: var(--size-2) var(--size-2) var(--size-0);
+    border-bottom: var(--size-0) solid var(--light-grey);
+    width: 100%;
+    max-width: 10rem;
+    color: var(--light-grey);
+    margin: 0 0 0 var(--size-1);
+
+    &:focus {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      outline: var(--size-0) solid var(--accent);
+    }
   }
 }
