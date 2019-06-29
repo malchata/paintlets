@@ -56,14 +56,6 @@ class Paintlet extends Component {
       });
     }
 
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(this.addPaintWorklet);
-    } else {
-      this.addPaintWorklet();
-    }
-  }
-
-  addPaintWorklet () {
     if (window.CSS.paintWorklet) {
       CSS.paintWorklet.addModule(`/worklets/${this.props.workletName}.js`).then(() => {
         this.paintletPreview.style.backgroundImage = `paint(${this.props.workletName})`;
@@ -99,8 +91,6 @@ class Paintlet extends Component {
   }
 
   updateBackgroundColor () {
-    console.dir(this.backgroundColorInput);
-
     this.setState({
       backgroundColor: this.backgroundColorInput.value
     }, () => {
