@@ -8,7 +8,7 @@ import compression from "compression";
 import { h } from "preact";
 
 // App-specific
-import { IS_PRODUCTION } from "Helpers/constants";
+import { IS_PRODUCTION, PORT } from "Helpers/constants";
 import html from "Helpers/html";
 import Home from "Components/Home";
 import worklets from "./worklets";
@@ -28,7 +28,7 @@ if (IS_PRODUCTION) {
 }
 
 // Spin up web server
-app.listen(IS_PRODUCTION ? "80" : "8080", () => {
+app.listen(PORT, () => {
   readFile(resolve(process.cwd(), "dist", "server", "assets.json"), (error, data) => {
     if (error) {
       throw error;
