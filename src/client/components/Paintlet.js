@@ -56,19 +56,25 @@ class Paintlet extends Component {
       });
     }
 
-    if (window.CSS.paintWorklet) {
-      requestIdleCallback(() => {
-        CSS.paintWorklet.addModule(`/worklets/${this.props.workletName}.js`).then(() => {
-          this.paintletPreview.style.backgroundImage = `paint(${this.props.workletName})`;
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(this.addPaintWorklet);
+    } else {
+      this.addPaintWorklet();
+    }
+  }
 
-          this.setState({
-            loading: false
-          });
-        }).catch(() => {
-          this.setState({
-            loading: false,
-            error: true
-          });
+  addPaintWorklet () {
+    if (window.CSS.paintWorklet) {
+      CSS.paintWorklet.addModule(`/worklets/${this.props.workletName}.js`).then(() => {
+        this.paintletPreview.style.backgroundImage = `paint(${this.props.workletName})`;
+
+        this.setState({
+          loading: false
+        });
+      }).catch(() => {
+        this.setState({
+          loading: false,
+          error: true
         });
       });
     } else {
