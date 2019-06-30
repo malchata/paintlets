@@ -2,12 +2,10 @@
 import render from "preact-render-to-string";
 
 export default function (metadata, route, component, assets) {
-  let includeScript = "var moduleSupport = \"noModule\" in HTMLScriptElement.prototype;";
-
-  includeScript += Object.keys(assets).map(assetKey => `
+  let includeScript = Object.keys(assets).map(assetKey => `
     ${assetKey}Script = document.createElement("script");
 
-    if (moduleSupport) {
+    if ("noModule" in HTMLScriptElement.prototype) {
       ${assetKey}Script.src = "${assets[assetKey].mjs}";
       ${assetKey}Script.type = "module";
     } else {
@@ -24,10 +22,11 @@ export default function (metadata, route, component, assets) {
     <html class="no-js" lang="en" dir="ltr">
       <head>
         <title>
-          ${metadata.title} &mdash; Paintlets!
+          ${metadata.title !== "Home" ? `${metadata.title} &mdash; ` : ""}Paintlets!
         </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
+        ${metadata.metaTags.map(metaTag => `<meta${Object.keys(metaTag).map(metaTagAttribute => ` ${metaTagAttribute}="${metaTag[metaTagAttribute]}"`).join("")}>`).join("")}
         <script>document.documentElement.classList.remove("no-js")</script>
         <link rel="stylesheet" href="${assets.home.css}">
       </head>
