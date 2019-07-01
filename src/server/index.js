@@ -15,13 +15,20 @@ import worklets from "./worklets";
 // Init express app
 const app = express();
 
-// Static content paths
-app.use("/js", express.static(resolve(process.cwd(), "dist", "client", "js")));
-app.use("/worklets", express.static(resolve(process.cwd(), "dist", "client", "worklets")));
-app.use("/css", express.static(resolve(process.cwd(), "dist", "client", "css")));
+// Specify caching routine
+const staticOptions = {
+  setHeaders: res => {
+    res.set("Cache-Control", "max-age=31557600, public");
+  }
+};
 
 // Use compression.
 app.use(compression());
+
+// Static content paths
+app.use("/js", express.static(resolve(process.cwd(), "dist", "client", "js"), staticOptions));
+app.use("/worklets", express.static(resolve(process.cwd(), "dist", "client", "worklets"), staticOptions));
+app.use("/css", express.static(resolve(process.cwd(), "dist", "client", "css"), staticOptions));
 
 // Spin up web server
 app.listen(process.env.PORT || 8080, () => {
