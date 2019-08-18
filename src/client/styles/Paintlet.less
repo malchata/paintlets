@@ -93,11 +93,20 @@
     max-width: 10rem;
     color: var(--light-grey);
     margin: 0 0 0 var(--size-1);
+    text-align: center;
 
     &:focus {
       color: var(--accent);
       border-bottom-color: var(--accent);
       outline: var(--size-0) solid var(--accent);
+    }
+  }
+}
+
+.properties {
+  & > input {
+    & + label {
+      margin-top: var(--size-5);
     }
   }
 }

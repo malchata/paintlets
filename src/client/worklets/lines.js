@@ -1,28 +1,30 @@
 /* global registerPaint */
 
-registerPaint("lines", class LinesPainter {
+const paintName = "lines";
+
+class Lines {
   constructor() {
   }
 
   static get inputProperties() {
     return [
-      "--lines-tile-size",
-      "--lines-color",
-      "--lines-weight",
-      "--lines-probability",
-      "--lines-direction",
-      "--lines-crosshatch"
+      `--${paintName}-tile-size`,
+      `--${paintName}-color`,
+      `--${paintName}-weight`,
+      `--${paintName}-probability`,
+      `--${paintName}-direction`,
+      `--${paintName}-crosshatch`
     ];
   }
 
   paint (ctx, geom, properties) {
-    const tileSize = parseFloat(properties.get("--lines-tile-size"));
-    const color = properties.get("--lines-color").toString();
-    const weight = parseFloat(properties.get("--lines-weight"));
-    const probability = parseFloat(properties.get("--lines-probability"));
+    const tileSize = parseFloat(properties.get(`--${paintName}-tile-size`));
+    const color = properties.get(`--${paintName}-color`).toString();
+    const weight = parseFloat(properties.get(`--${paintName}-weight`));
+    const probability = parseFloat(properties.get(`--${paintName}-probability`));
     const crosshatchProbability = probability + (Math.abs(probability - 1) / 2);
-    const direction = !!parseInt(properties.get("--lines-direction"));
-    const crosshatch = !!parseInt(properties.get("--lines-crosshatch"));
+    const direction = !!parseInt(properties.get(`--${paintName}-direction`));
+    const crosshatch = !!parseInt(properties.get(`--${paintName}-crosshatch`));
 
     // Set styles
     ctx.lineWidth = weight;
@@ -66,4 +68,6 @@ registerPaint("lines", class LinesPainter {
 
     ctx.stroke();
   }
-});
+}
+
+registerPaint(paintName, Lines);

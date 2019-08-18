@@ -9,21 +9,23 @@ class Paintlet extends Component {
   constructor (props) {
     super(props);
 
+    const { customProperties, backgroundColor } = props;
+
     this.state = {
-      customProperties: props.customProperties,
+      customProperties,
       paintAPISupported: true,
       loading: true,
       error: false,
-      backgroundColor: "#fffbfe"
+      backgroundColor
     };
 
     this.updateCustomProperty = this.updateCustomProperty.bind(this);
     this.updateBackgroundColor = this.updateBackgroundColor.bind(this);
 
-    if (typeof window !== "undefined" && this.props.lazy) {
+    if (typeof window !== "undefined" && props.lazy) {
       this.paintletObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
-          if (entry.intersectionRatio) {
+          if (entry.isIntersecting || entry.intersectionRatio) {
             this.registerPaintlet();
             observer.unobserve(entry.target);
             this.paintletObserver.disconnect();
@@ -34,6 +36,8 @@ class Paintlet extends Component {
   }
 
   componentDidMount () {
+    this.paintletPreview.style.backgroundColor = this.state.backgroundColor;
+
     if (this.props.lazy) {
       this.paintletObserver.observe(this.paintletRoot);
     } else {
@@ -44,14 +48,14 @@ class Paintlet extends Component {
   registerPaintlet () {
     if (window.CSS.registerProperty) {
       Object.keys(this.props.customProperties).forEach(customPropertyName => {
-        const customProperty = this.props.customProperties[customPropertyName];
-        const customPropertyKey = `--${this.props.workletName}-${customPropertyName}`;
+        const { syntax, value } = this.props.customProperties[customPropertyName];
+        const name = `--${this.props.workletName}-${customPropertyName}`;
 
         CSS.registerProperty({
-          name: customPropertyKey,
-          syntax: `${customProperty.syntax}`,
+          name,
+          syntax,
           inherits: false,
-          initialValue: customProperty.value
+          initialValue: value
         });
       });
     }
@@ -125,7 +129,7 @@ class Paintlet extends Component {
             />
           </fieldset>
         </section>
-        <section className="properties">
+        <fieldset className="properties">
           {Object.keys(customProperties).map((customPropertyName, key) => {
             const { syntax, value } = customProperties[customPropertyName];
 
@@ -141,7 +145,7 @@ class Paintlet extends Component {
               />
             );
           })}
-        </section>
+        </fieldset>
       </li>
     );
   }

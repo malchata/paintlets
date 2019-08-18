@@ -1,5 +1,7 @@
 /* global registerPaint */
 
+const paintName = "circles";
+
 class Circles {
   constructor () {
     this.fullArc = Math.PI * 2;
@@ -7,10 +9,10 @@ class Circles {
 
   static get inputProperties () {
     return [
-      "--circles-tile-size",
-      "--circles-colors",
-      "--circles-amplitude",
-      "--circles-blend-mode"
+      `--${paintName}-tile-size`,
+      `--${paintName}-colors`,
+      `--${paintName}-amplitude`,
+      `--${paintName}-blend-mode`
     ];
   }
 
@@ -74,11 +76,11 @@ class Circles {
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.beginPath();
-    ctx.arc(xOffset, yOffset, radius, 0, 2 * this.fullArc, false);
+    ctx.arc(xOffset, yOffset, radius, 0, this.fullArc, false);
     ctx.fillStyle = color;
     ctx.fill();
     ctx.restore();
   }
 }
 
-registerPaint("circles", Circles);
+registerPaint(paintName, Circles);

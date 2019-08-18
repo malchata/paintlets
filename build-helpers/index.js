@@ -11,6 +11,12 @@ export const mode = process.env.NODE_ENV === "production" ? "production" : "deve
 export const src = (...args) => path.resolve(process.cwd(), "src", ...args);
 export const dist = (...args) => path.resolve(process.cwd(), "dist", ...args);
 export const isProd = mode === "production";
+export const assetsPluginInstance = new AssetsWebpackPlugin({
+  filename: "assets.json",
+  path: dist("server"),
+  update: true,
+  fileTypes: ["mjs", "js", "jpg"]
+});
 
 export const commonConfig = {
   mode,
@@ -30,12 +36,7 @@ export const commonClientConfig = {
     home: src("client", "routes", "home.js")
   },
   plugins: [
-    new AssetsWebpackPlugin({
-      filename: "assets.json",
-      path: dist("server"),
-      update: true,
-      fileTypes: ["mjs", "js", "jpg"]
-    }),
+    assetsPluginInstance,
     new MiniCssExtractPlugin({
       filename: `css/${isProd ? "[name].[contenthash:8].css" : "[name].css"}`,
       chunkFilename: `css/${isProd ? "[name].[contenthash:8].css" : "[name].css"}`

@@ -18,6 +18,8 @@ Paint worklets are a part of CSS Houdini. They're a really neat way of combining
 
 ## How the hell can I get my paint worklet(s) on this thing?
 
+_**tl;dr:** It's a lot of work, and I'm very particular. If you have a paint worklet you'd like me to add for you, I'd be happy to do so. Just file an issue with a link to your paint worklet, the screen name you'd like to be credited under, a link to your personal website, twitter, or whatever._
+
 If you have a paint worklet you'd like to add to the gallery, the process is a bit involved. Don't fret! I'll walk you through it.
 
 ### 1. Fork the repo and install npm packages
@@ -58,10 +60,11 @@ Once you've scoped your paint worklet, you'll need to add its JavaScript to this
 
 This app discovers paint worklets through a file named [`worklets.js`](https://github.com/malchata/paintlets/blob/master/src/server/worklets.js), which is found in the [`src/server` folder](https://github.com/malchata/paintlets/tree/master/src/server). This file exports a collection of objects. Each one is for an individual paint worklet. The key for each object is the scope for that paint worklet.
 
-Each object in the collection has two child objects:
+Each object in the collection has three child objects:
 
-1. One named `author`, which identifies the creator of the paint worklet.
-2. One named `customProperties`, which contains the custom properties for the associated paint worklet.
+1. `author`, which identifies the creator of the paint worklet.
+2. `backgroundColor`, which is the initial background color assigned to the paint worklet's container element after it loads.
+2. `customProperties`, which contains the custom properties for the associated paint worklet.
 
 Here's what a definition for our `barf` paint worklet may look like:
 
@@ -74,6 +77,7 @@ export default {
       // If you don't have a website, point to a social media URL.
       website: "https://muhwebsites.wtf/"
     },
+    backgroundColor: "#fffbfe",
     customProperties: {
       // Custom properties with multiple words should be in kebab case and quoted.
       "splatter-radius": {

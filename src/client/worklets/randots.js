@@ -1,49 +1,51 @@
 /* global registerPaint */
 
+const paintName = "randots";
+
 class Randots {
   constructor() {
   }
 
   static get inputProperties() {
     return [
-      "--randots-tile-size",
-      "--randots-fill-color",
-      "--randots-starting-alpha",
-      "--randots-alpha-increment",
-      "--randots-starting-probability",
-      "--randots-probability-increment"
+      `--${paintName}-tile-size`,
+      `--${paintName}-fill-color`,
+      `--${paintName}-starting-alpha`,
+      `--${paintName}-alpha-increment`,
+      `--${paintName}-starting-probability`,
+      `--${paintName}-probability-increment`
     ];
   }
 
   paint(ctx, geom, properties) {
-    const tileSize = parseInt(properties.get("--randots-tile-size"));
+    const tileSize = parseInt(properties.get(`--${paintName}-tile-size`));
     const dots = Math.ceil(geom.width / tileSize);
     const lines = Math.ceil(geom.height / tileSize);
-    const alpha = parseFloat(properties.get("--randots-starting-alpha"));
-    const alphaIncrement = parseFloat(properties.get("--randots-alpha-increment"));
-    const probabilityIncrement = parseFloat(properties.get("--randots-probability-increment"));
-    const hexColor = properties.get("--randots-fill-color").toString().split("#").pop();
-    let probability = parseFloat(properties.get("--randots-starting-probability"));
+    const startingAlpha = parseFloat(properties.get(`--${paintName}-starting-alpha`));
+    const alphaIncrement = parseFloat(properties.get(`--${paintName}-alpha-increment`));
+    const probabilityIncrement = parseFloat(properties.get(`--${paintName}-probability-increment`));
+    const hexColor = properties.get(`--${paintName}-fill-color`).toString().split("#").pop();
+    let startingProbability = parseFloat(properties.get(`--${paintName}-starting-probability`));
     let colorParts = {
       r: parseInt(`${hexColor[0]}${hexColor[1]}`, 16),
       g: parseInt(`${hexColor[2]}${hexColor[3]}`, 16),
       b: parseInt(`${hexColor[4]}${hexColor[5]}`, 16),
-      a: alpha
+      a: startingAlpha
     };
 
     for (let line = 0; line < lines; line += tileSize) {
-      ctx.fillStyle = `rgb(${colorParts.r}, ${colorParts.g}, ${colorParts.b}, ${colorParts.a})`;
+      ctx.fillStyle = `rgba(${colorParts.r}, ${colorParts.g}, ${colorParts.b}, ${colorParts.a})`;
 
       for (let dot = 0; dot < dots; dot += tileSize) {
-        if (Math.random() < probability) {
+        if (Math.random() < startingProbability) {
           ctx.fillRect((dot * tileSize), (line * tileSize), tileSize, tileSize);
         }
       }
 
-      probability += probabilityIncrement;
+      startingProbability += probabilityIncrement;
       colorParts.a = colorParts.a += alphaIncrement;
     }
   }
 }
 
-registerPaint("randots", Randots);
+registerPaint(paintName, Randots);

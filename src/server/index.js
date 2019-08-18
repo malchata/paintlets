@@ -5,6 +5,7 @@ import { resolve } from "path";
 // Vendors
 import express from "express";
 import compression from "compression";
+import enforceTLS from "express-sslify";
 import { h } from "preact";
 
 // App-specific
@@ -24,6 +25,13 @@ const staticOptions = {
 
 // Use compression.
 app.use(compression());
+
+// Force TLS if in prod
+if (process.env.NODE_ENV === "production") {
+  app.use(enforceTLS.HTTPS({
+    trustProtoHeader: true
+  }));
+}
 
 // Static content paths
 app.use("/js", express.static(resolve(process.cwd(), "dist", "client", "js"), staticOptions));
