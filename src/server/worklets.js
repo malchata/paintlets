@@ -1,4 +1,37 @@
 export default {
+  flashy: {
+    author: {
+      screenName: "malchata",
+      website: "https://jeremy.codes/"
+    },
+    backgroundColor: "#e59eff",
+    customProperties: {
+      radius: {
+        syntax: "<integer>",
+        value: 48
+      },
+      "ray-width": {
+        syntax: "<number>",
+        value: 1.5
+      },
+      threshold: {
+        syntax: "<number>",
+        value: 0.75
+      },
+      color: {
+        syntax: "<color>",
+        value: "#fffbfe"
+      },
+      top: {
+        syntax: "<number>",
+        value: 0.25
+      },
+      left: {
+        syntax: "<number>",
+        value: 0.125
+      }
+    }
+  },
   circles: {
     author: {
       screenName: "malchata",
@@ -75,39 +108,6 @@ export default {
       crosshatch: {
         syntax: "<integer>",
         value: 1
-      }
-    }
-  },
-  randots: {
-    author: {
-      screenName: "malchata",
-      website: "https://jeremy.codes/"
-    },
-    backgroundColor: "#fffbfe",
-    customProperties: {
-      "tile-size": {
-        syntax: "<integer>",
-        value: 2
-      },
-      "fill-color": {
-        syntax: "<color>",
-        value: "#7ac7ff"
-      },
-      "starting-alpha": {
-        syntax: "<number>",
-        value: 0.0125
-      },
-      "alpha-increment": {
-        syntax: "<number>",
-        value: 0.00125
-      },
-      "starting-probability": {
-        syntax: "<number>",
-        value: 0.000625
-      },
-      "probability-increment": {
-        syntax: "<number>",
-        value: 0.0025
       }
     }
   }

@@ -113,7 +113,7 @@ class Paintlet extends Component {
           <a href={`https://github.com/malchata/paintlets/blob/master/src/client/worklets/${workletName}.js`} rel="noopener">{workletName}</a> by <a href={author.website} rel="noopener">{author.screenName}</a>
         </h3>
         <section className={`preview ${paintAPISupported ? "" : "state-no-support"} ${loading ? "state-loading" : ""} ${error ? "state-error": ""}`} ref={paintletPreview => this.paintletPreview = paintletPreview}>
-          <p className="message-no-support">😫&nbsp;Paint API not supported</p>
+          <p className="message-no-support">😖&nbsp;Paint API not supported</p>
           <p className="message-loading">⏳&nbsp;Loading paintlet...</p>
           <p className="message-error">🐜&nbsp;Arrrgh! There was a bug!</p>
           <fieldset className="controls">
