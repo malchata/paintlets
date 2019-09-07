@@ -20,7 +20,7 @@ class CustomProperty extends Component {
 
     return (
       <>
-        <label htmlFor={id}>{`${name}:`}</label>
+        <label htmlFor={id}>{`--${id}:`}</label>
         <input
           onChange={this.onCustomPropertyChange}
           ref={customPropertyInput => this.customPropertyInput = customPropertyInput}

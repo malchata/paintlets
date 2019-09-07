@@ -28,7 +28,28 @@ export default {
       },
       left: {
         syntax: "<number>",
-        value: 0.125
+        value: 0.1875
+      }
+    }
+  },
+  circuits: {
+    author: {
+      screenName: "malchata",
+      website: "https://jeremy.codes/"
+    },
+    backgroundColor: "#14131c",
+    customProperties: {
+      "tile-size": {
+        syntax: "<integer>",
+        value: 12
+      },
+      color: {
+        syntax: "<color>",
+        value: "#fbcaef"
+      },
+      thickness: {
+        syntax: "<number>",
+        value: 1.5
       }
     }
   },
@@ -86,8 +107,8 @@ export default {
     backgroundColor: "#fffbfe",
     customProperties: {
       "tile-size": {
-        syntax: "<number>",
-        value: 48.0
+        syntax: "<integer>",
+        value: 48
       },
       color: {
         syntax: "<color>",

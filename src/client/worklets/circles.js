@@ -17,10 +17,10 @@ class Circles {
   }
 
   paint (ctx, geom, properties) {
-    const tileSize = parseInt(properties.get("--circles-tile-size"));
-    const colors = this.convertColorList(properties.get("--circles-colors").toString());
-    const amplitude = parseFloat(properties.get("--circles-amplitude"));
-    const blendMode = properties.get("--circles-blend-mode").toString();
+    const tileSize = parseInt(properties.get(`--${paintName}-tile-size`));
+    const colors = this.convertColorList(properties.get(`--${paintName}-colors`).toString());
+    const amplitude = parseFloat(properties.get(`--${paintName}-amplitude`));
+    const blendMode = properties.get(`--${paintName}-blend-mode`).toString();
     const geomTileHeight = geom.height / tileSize;
     const geomTileWidth = geom.width / tileSize;
 
