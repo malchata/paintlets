@@ -1,4 +1,29 @@
 export default {
+  towers: {
+    author: {
+      screenName: "malchata",
+      website: "https://jeremy.codes/"
+    },
+    backgroundColor: "#a38eff",
+    customProperties: {
+      "tile-size": {
+        syntax: "<integer>",
+        value: 16
+      },
+      gap: {
+        syntax: "<number>",
+        value: 1.0
+      },
+      color: {
+        syntax: "<color>",
+        value: "#735cdd"
+      },
+      probability: {
+        syntax: "<number>",
+        value: 0.375
+      }
+    }
+  },
   flashy: {
     author: {
       screenName: "malchata",

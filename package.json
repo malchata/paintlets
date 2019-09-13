@@ -14,7 +14,8 @@
     "build:stats": "NODE_ENV=production npx webpack --progress --profile --json > compilation-stats.json",
     "build:worklets": "npm run copy:worklets && find ./dist/client/worklets -type f -name '*.js' | xargs -P 16 -I {} npx terser -c -m -o {} --ecma 8 {}",
     "start": "npm run build && npm run server",
-    "server": "node ./dist/server/index.js"
+    "server": "node ./dist/server/index.js",
+    "preview": "npm run build:dev && npm run server"
   },
   "repository": {
     "type": "git",
@@ -53,7 +54,7 @@
     "mini-css-extract-plugin": "^0.8.0",
     "null-loader": "^3.0.0",
     "postcss-loader": "^3.0.0",
-    "webpack": "^4.39.3",
+    "webpack": "^4.40.2",
     "webpack-cli": "^3.3.8",
     "webpack-node-externals": "^1.7.2"
   },
