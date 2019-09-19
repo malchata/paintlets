@@ -1,4 +1,33 @@
 export default {
+  parallelowow: {
+    author: {
+      screenName: "malchata",
+      website: "https://jeremy.codes/"
+    },
+    backgroundColor: "#c9f",
+    customProperties: {
+      "tile-width": {
+        syntax: "<integer>",
+        value: 56
+      },
+      gap: {
+        syntax: "<integer>",
+        value: 0
+      },
+      "base-color": {
+        syntax: "<color>",
+        value: "#c9f"
+      },
+      "color-decrement": {
+        syntax: "<integer>",
+        value: 4
+      },
+      probability: {
+        syntax: "<number>",
+        value: 0.33
+      }
+    }
+  },
   towers: {
     author: {
       screenName: "malchata",
@@ -11,8 +40,8 @@ export default {
         value: 16
       },
       gap: {
-        syntax: "<number>",
-        value: 1.0
+        syntax: "<integer>",
+        value: 1
       },
       color: {
         syntax: "<color>",
@@ -66,7 +95,7 @@ export default {
     customProperties: {
       "tile-size": {
         syntax: "<integer>",
-        value: 12
+        value: 20
       },
       color: {
         syntax: "<color>",
@@ -74,11 +103,11 @@ export default {
       },
       thickness: {
         syntax: "<number>",
-        value: 1.5
+        value: 1.25
       }
     }
   },
-  circles: {
+  blotto: {
     author: {
       screenName: "malchata",
       website: "https://jeremy.codes/"
@@ -89,9 +118,9 @@ export default {
         syntax: "<integer>",
         value: 8
       },
-      colors: {
-        syntax: "<color>+",
-        value: "#e59eff #0094ff #ff8a7f"
+      color: {
+        syntax: "<color>",
+        value: "#e59eff"
       },
       amplitude: {
         syntax: "<number>",
@@ -115,8 +144,8 @@ export default {
         value: 24
       },
       thickness: {
-        syntax: "<integer>",
-        value: 2
+        syntax: "<number>",
+        value: 1.5
       },
       color: {
         syntax: "<color>",

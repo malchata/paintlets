@@ -16,7 +16,7 @@ class Bumpy {
 
   paint (ctx, geom, properties) {
     const tileSize = parseInt(properties.get(`--${paintName}-tile-size`));
-    const thickness = parseInt(properties.get(`--${paintName}-thickness`));
+    const thickness = parseFloat(properties.get(`--${paintName}-thickness`));
     const color = properties.get(`--${paintName}-color`).toString();
     const geomTileHeight = (geom.height * 2) / tileSize;
     const geomTileWidth = geom.width / tileSize;
