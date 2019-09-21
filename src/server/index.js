@@ -6,7 +6,6 @@ import { resolve } from "path";
 import express from "express";
 import compression from "compression";
 import enforceTLS from "express-sslify";
-import minifyHtml from "express-minify-html";
 import { h } from "preact";
 
 // App-specific
@@ -32,17 +31,6 @@ app.use(compression());
 if (process.env.NODE_ENV === "production") {
   app.use(enforceTLS.HTTPS({
     trustProtoHeader: true
-  }));
-
-  app.use(minifyHtml({
-    override: true,
-    exception_url: false,
-    htmlMinifier: {
-      removeComments: true,
-      collapseWhitespace: true,
-      removeEmptyAttributes: true,
-      minifyJS: true
-    }
   }));
 }
 

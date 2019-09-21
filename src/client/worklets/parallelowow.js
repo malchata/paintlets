@@ -4,13 +4,12 @@ const paintName = "parallelowow";
 
 class Parallelowow {
   constructor () {
-    this.radians = (Math.PI / 180) * 45;
+    this.radians = (Math.PI / 180) * 22.5;
   }
 
   static get inputProperties () {
     return [
       `--${paintName}-tile-width`,
-      `--${paintName}-gap`,
       `--${paintName}-base-color`,
       `--${paintName}-color-decrement`,
       `--${paintName}-probability`
@@ -20,7 +19,6 @@ class Parallelowow {
   paint (ctx, geom, properties) {
     const tileWidth = parseInt(properties.get(`--${paintName}-tile-width`));
     const tileHeight = tileWidth * (1 / 4);
-    const gap = parseInt(properties.get(`--${paintName}-gap`));
 
     let colors = {
       baseColor: properties.get(`--${paintName}-base-color`).toString(),
@@ -42,14 +40,14 @@ class Parallelowow {
 
         if (Math.random() > probability) {
           // Helpers!
-          const upperLeftX = xOffset + gap;
-          const upperLeftY = yOffset + gap;
-          const upperRightX = (xOffset + tileWidth) - gap;
-          const upperRightY = yOffset + gap;
-          const lowerRightX = (xOffset + (tileWidth - tileHeight)) - gap;
-          const lowerRightY = (yOffset + tileHeight) - gap;
-          const lowerLeftX = (xOffset - tileHeight) + gap;
-          const lowerLeftY = (yOffset + tileHeight) - gap;
+          const upperLeftX = xOffset;
+          const upperLeftY = yOffset;
+          const upperRightX = xOffset + tileWidth;
+          const upperRightY = yOffset;
+          const lowerRightX = xOffset + (tileWidth - tileHeight);
+          const lowerRightY = yOffset + tileHeight;
+          const lowerLeftX = xOffset - tileHeight;
+          const lowerLeftY = yOffset + tileHeight;
 
           // 1. Draw shape on the right side of the parallelogram
           ctx.fillStyle = colors.darkColor;

@@ -10,10 +10,6 @@ export default {
         syntax: "<integer>",
         value: 56
       },
-      gap: {
-        syntax: "<integer>",
-        value: 0
-      },
       "base-color": {
         syntax: "<color>",
         value: "#c9f"

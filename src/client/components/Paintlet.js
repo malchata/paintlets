@@ -16,11 +16,13 @@ class Paintlet extends Component {
       paintAPISupported: true,
       loading: true,
       error: false,
+      fullscreen: false,
       backgroundColor
     };
 
     this.updateCustomProperty = this.updateCustomProperty.bind(this);
     this.updateBackgroundColor = this.updateBackgroundColor.bind(this);
+    this.toggleFullscreen = this.toggleFullscreen.bind(this);
 
     if (typeof window !== "undefined" && props.lazy) {
       this.paintletObserver = new IntersectionObserver((entries, observer) => {
@@ -102,17 +104,43 @@ class Paintlet extends Component {
     });
   }
 
+  toggleFullscreen () {
+    this.setState({
+      fullscreen: !this.state.fullscreen
+    }, () => {
+      document.body.style.overflow = this.state.fullscreen ? "hidden" : "auto";
+    });
+  }
+
   render () {
     const { author, workletName } = this.props;
-    const { loading, error, paintAPISupported, backgroundColor, customProperties } = this.state;
+    const { loading, error, paintAPISupported, backgroundColor, customProperties, fullscreen } = this.state;
     const backgroundColorFieldName = `paintlet-background-color-${workletName}`;
+    const paintletClassNames = ["preview"];
+
+    if (!paintAPISupported) {
+      paintletClassNames.push("state-no-support");
+    }
+
+    if (loading) {
+      paintletClassNames.push("state-loading");
+    }
+
+    if (error) {
+      paintletClassNames.push("state-error");
+    }
+
+    if (fullscreen) {
+      paintletClassNames.push("state-fullscreen");
+    }
 
     return (
       <li className="paintlet" ref={paintletRoot => this.paintletRoot = paintletRoot}>
         <h3>
           <a href={`https://github.com/malchata/paintlets/blob/master/src/client/worklets/${workletName}.js`} rel="noopener">{workletName}</a> by <a href={author.website} rel="noopener">{author.screenName}</a>
         </h3>
-        <section className={`preview ${paintAPISupported ? "" : "state-no-support"} ${loading ? "state-loading" : ""} ${error ? "state-error": ""}`} ref={paintletPreview => this.paintletPreview = paintletPreview}>
+        <section className={paintletClassNames.join(" ")} ref={paintletPreview => this.paintletPreview = paintletPreview}>
+          <button className="fullscreen-toggle" onClick={this.toggleFullscreen}>{`${fullscreen ? "exit" : "view"} fullscreen`}</button>
           <p className="message-no-support">😖&nbsp;Paint API not supported</p>
           <p className="message-loading">⏳&nbsp;Loading paintlet...</p>
           <p className="message-error">🐜&nbsp;Arrrgh! There was a bug!</p>

@@ -17,7 +17,7 @@ export default function (metadata, route, component, assets) {
     document.body.appendChild(${assetKey}Script);
   `).join("");
 
-  return `
+  let htmlString = `
     <!DOCTYPE html>
     <html class="no-js" lang="en" dir="ltr">
       <head>
@@ -42,4 +42,6 @@ export default function (metadata, route, component, assets) {
       </body>
     </html>
   `;
+
+  return htmlString;
 }
