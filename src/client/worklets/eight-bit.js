@@ -1,6 +1,6 @@
 /* global registerPaint */
 
-const paintName = "towers";
+const paintName = "eight-bit";
 
 class Towers {
   constructor () {

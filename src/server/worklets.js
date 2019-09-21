@@ -16,20 +16,24 @@ export default {
       },
       "color-decrement": {
         syntax: "<integer>",
-        value: 4
+        value: -3
       },
       probability: {
         syntax: "<number>",
         value: 0.33
+      },
+      "stroke-weight": {
+        syntax: "<number>",
+        value: 0.5
       }
     }
   },
-  towers: {
+  "eight-bit": {
     author: {
       screenName: "malchata",
       website: "https://jeremy.codes/"
     },
-    backgroundColor: "#a38eff",
+    backgroundColor: "#735cdd",
     customProperties: {
       "tile-size": {
         syntax: "<integer>",

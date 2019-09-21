@@ -12,7 +12,8 @@ class Parallelowow {
       `--${paintName}-tile-width`,
       `--${paintName}-base-color`,
       `--${paintName}-color-decrement`,
-      `--${paintName}-probability`
+      `--${paintName}-probability`,
+      `--${paintName}-stroke-weight`,
     ];
   }
 
@@ -20,17 +21,24 @@ class Parallelowow {
     const tileWidth = parseInt(properties.get(`--${paintName}-tile-width`));
     const tileHeight = tileWidth * (1 / 4);
 
-    let colors = {
-      baseColor: properties.get(`--${paintName}-base-color`).toString(),
-      darkColor: this.darken(properties.get(`--${paintName}-base-color`).toString(), 10),
-      darkerColor: this.darken(properties.get(`--${paintName}-base-color`).toString(), 30)
-    };
+    let colors = [
+      properties.get(`--${paintName}-base-color`).toString(),
+      this.adjustBrightness(properties.get(`--${paintName}-base-color`).toString(), -10),
+      this.adjustBrightness(properties.get(`--${paintName}-base-color`).toString(), -30)
+    ];
 
     const colorDecrement = parseInt(properties.get(`--${paintName}-color-decrement`));
     const probability = parseFloat(properties.get(`--${paintName}-probability`));
+    const strokeWeight = parseFloat(properties.get(`--${paintName}-stroke-weight`));
     const geomTilesY = geom.height / tileHeight;
     const geomTilesX = geom.width / tileWidth;
     const outerRadius = geom.width > geom.height ? geom.width * 2 : geom.height * 2;
+
+    if (strokeWeight > 0) {
+      ctx.lineWidth = strokeWeight;
+      ctx.strokeStyle = colors[0];
+      ctx.lineCap = "butt";
+    }
 
     for (let y = -1; y < geomTilesY; y++) {
       const yOffset = y * tileHeight;
@@ -47,10 +55,10 @@ class Parallelowow {
           const lowerRightX = xOffset + (tileWidth - tileHeight);
           const lowerRightY = yOffset + tileHeight;
           const lowerLeftX = xOffset - tileHeight;
-          const lowerLeftY = yOffset + tileHeight;
+          const lowerLeftY = lowerRightY;
 
           // 1. Draw shape on the right side of the parallelogram
-          ctx.fillStyle = colors.darkColor;
+          ctx.fillStyle = colors[1];
           ctx.beginPath();
           ctx.moveTo(upperRightX, upperRightY);
           ctx.lineTo((Math.cos(this.radians) * outerRadius), (Math.sin(this.radians) * outerRadius));
@@ -58,8 +66,12 @@ class Parallelowow {
           ctx.lineTo(upperRightX, upperRightY);
           ctx.fill();
 
+          if (strokeWeight > 0) {
+            ctx.stroke();
+          }
+
           // 2. Draw shape on the lower left side of the parallelogram
-          ctx.fillStyle = colors.darkerColor;
+          ctx.fillStyle = colors[2];
           ctx.beginPath();
           ctx.moveTo(lowerRightX, lowerRightY);
           ctx.lineTo((Math.cos(this.radians) * outerRadius), (Math.sin(this.radians) * outerRadius));
@@ -67,8 +79,12 @@ class Parallelowow {
           ctx.moveTo(lowerLeftX, lowerLeftY);
           ctx.fill();
 
+          if (strokeWeight > 0) {
+            ctx.stroke();
+          }
+
           // 3. Draw parallelogram cap
-          ctx.fillStyle = colors.baseColor;
+          ctx.fillStyle = colors[0];
           ctx.beginPath();
           ctx.moveTo(upperLeftX, upperLeftY);
           ctx.lineTo(upperRightX, upperRightY);
@@ -76,29 +92,36 @@ class Parallelowow {
           ctx.lineTo(lowerLeftX, lowerLeftY);
           ctx.lineTo(upperLeftX, upperLeftY);
           ctx.fill();
+
+          if (strokeWeight > 0) {
+            ctx.stroke();
+          }
         }
       }
 
       // 4. Slightly darken colors for next run.
-      Object.keys(colors).forEach(colorKey => {
-        colors[colorKey] = this.darken(colors[colorKey], colorDecrement);
-      });
+      colors = colors.map(colorKey => this.adjustBrightness(colorKey, colorDecrement));
     }
   }
 
-  darken (rgbString, amt) {
-    rgbString = rgbString.replace(/rgb\(/g, "").replace(/\)/g, "").replace(/\s/g, "");
-    let rgbParts = rgbString.split(",");
+  adjustBrightness (rgbString, amt) {
+    rgbString = rgbString.replace(/rgba?\(/g, "").replace(/\)/g, "").replace(/\s/g, "");
 
-    for (let i = 0; i < rgbParts.length; i++) {
-      rgbParts[i] = rgbParts[i] - amt;
+    const rgbParts = rgbString.split(",").map(rgbPart => {
+      rgbPart = parseInt(rgbPart) + amt;
 
-      if (rgbParts[i] < 0) {
-        rgbParts[i] = 0;
+      if (rgbPart < 0) {
+        rgbPart = 0;
+      } else if (rgbPart > 255) {
+        rgbPart = 255;
       }
-    }
 
-    return `rgb(${rgbParts[0]}, ${rgbParts[1]}, ${rgbParts[2]})`;
+      return rgbPart;
+    });
+
+    console.log(rgbParts.join(","));
+
+    return `rgb(${rgbParts.join(",")})`;
   }
 }
 
