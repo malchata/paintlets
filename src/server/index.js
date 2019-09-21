@@ -6,6 +6,7 @@ import { resolve } from "path";
 import express from "express";
 import compression from "compression";
 import enforceTLS from "express-sslify";
+import minifyHtml from "express-minify-html";
 import { h } from "preact";
 
 // App-specific
@@ -15,6 +16,7 @@ import worklets from "./worklets";
 
 // Init express app
 const app = express();
+let renderCache = {};
 
 // Specify caching routine
 const staticOptions = {
@@ -26,10 +28,21 @@ const staticOptions = {
 // Use compression.
 app.use(compression());
 
-// Force TLS if in prod
+// Force TLS if in prod and minify HTML
 if (process.env.NODE_ENV === "production") {
   app.use(enforceTLS.HTTPS({
     trustProtoHeader: true
+  }));
+
+  app.use(minifyHtml({
+    override: true,
+    exception_url: false,
+    htmlMinifier: {
+      removeComments: true,
+      collapseWhitespace: true,
+      removeEmptyAttributes: true,
+      minifyJS: true
+    }
   }));
 }
 
@@ -56,9 +69,16 @@ app.listen(process.env.PORT || 8080, () => {
         ]
       };
 
+      if ("index" in renderCache === false) {
+        console.log("not in render cache");
+        renderCache["index"] = html(metadata, "/", <Home worklets={worklets} />, JSON.parse(data.toString()));
+      } else {
+        console.log("using render cache");
+      }
+
       res.set("Content-Type", "text/html");
       res.status(200);
-      res.send(html(metadata, "/", <Home worklets={worklets} />, JSON.parse(data.toString())));
+      res.send(renderCache["index"]);
     });
   });
 });

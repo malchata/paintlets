@@ -30,15 +30,15 @@ class Parallelowow {
 
     const colorDecrement = parseInt(properties.get(`--${paintName}-color-decrement`));
     const probability = parseFloat(properties.get(`--${paintName}-probability`));
-    const geomTileHeight = geom.height / tileHeight;
-    const geomTileWidth = geom.width / tileWidth;
-    const outerRadius = geom.width > geom.height ? geom.width * 1.5 : geom.height * 1.5;
+    const geomTilesY = geom.height / tileHeight;
+    const geomTilesX = geom.width / tileWidth;
+    const outerRadius = geom.width > geom.height ? geom.width * 2 : geom.height * 2;
 
-    for (let y = -4; y < geomTileHeight; y++) {
+    for (let y = -1; y < geomTilesY; y++) {
       const yOffset = y * tileHeight;
 
-      for (let x = -4; x < geomTileWidth; x++) {
-        const xOffset = x * tileWidth;
+      for (let x = -1; x < (geomTilesX + y); x++) {
+        const xOffset = (x * tileWidth) - (y * tileHeight);
 
         if (Math.random() > probability) {
           // Helpers!

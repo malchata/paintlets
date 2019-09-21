@@ -20,7 +20,7 @@ const PaintletList = ({ worklets }) => {
 
   return (
     <ul className="paintlet-list">
-      {Object.keys(worklets).map((workletName, key) => <Paintlet lazy={key > lazyKey} key={key} workletName={workletName} customProperties={worklets[workletName].customProperties} backgroundColor={worklets[workletName].backgroundColor} author={worklets[workletName].author} />)}
+      {Object.keys(worklets).map((workletName, key) => <Paintlet lazy={key >= lazyKey} key={key} workletName={workletName} customProperties={worklets[workletName].customProperties} backgroundColor={worklets[workletName].backgroundColor} author={worklets[workletName].author} />)}
     </ul>
   );
 };
