@@ -4,7 +4,7 @@ const paintName = "parallelowow";
 
 class Parallelowow {
   constructor () {
-    this.radians = (Math.PI / 180) * 22.5;
+    this.radians = (Math.PI / 180) * 39.375;
   }
 
   static get inputProperties () {
