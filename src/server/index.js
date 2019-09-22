@@ -41,7 +41,7 @@ app.use("/css", express.static(resolve(process.cwd(), "dist", "client", "css"), 
 
 // Spin up web server
 app.listen(process.env.PORT || 8080, () => {
-  readFile(resolve(process.cwd(), "dist", "server", "assets.json"), (error, data) => {
+  readFile(resolve(process.cwd(), "dist", "server", "assets.json"), (error, manifestData) => {
     if (error) {
       throw error;
     }
@@ -57,11 +57,8 @@ app.listen(process.env.PORT || 8080, () => {
         ]
       };
 
-      if ("index" in renderCache === false) {
-        console.log("not in render cache");
-        renderCache["index"] = html(metadata, "/", <Home worklets={worklets} />, JSON.parse(data.toString()));
-      } else {
-        console.log("using render cache");
+      if (renderCache.index === false) {
+        renderCache["index"] = html(metadata, "/", <Home worklets={worklets} />, JSON.parse(manifestData.toString()));
       }
 
       res.set("Content-Type", "text/html");

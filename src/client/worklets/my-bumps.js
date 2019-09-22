@@ -1,16 +1,14 @@
 /* global registerPaint */
 
-const paintName = "bumpy";
+const paintName = "my-bumps";
 
-class Bumpy {
-  constructor () {
-  }
-
+class MyBumps {
   static get inputProperties () {
     return [
       `--${paintName}-tile-size`,
       `--${paintName}-thickness`,
       `--${paintName}-color`,
+      `--${paintName}-probability`
     ];
   }
 
@@ -59,13 +57,15 @@ class Bumpy {
       ctx.moveTo(((xOffset + tileSize) - quarterTile), lineOffset);
       ctx.lineTo((xOffset + tileSize), lineOffset);
       ctx.stroke();
-    } else {
-      ctx.beginPath();
-      ctx.moveTo(xOffset, lineOffset);
-      ctx.lineTo((xOffset + tileSize), lineOffset);
-      ctx.stroke();
+
+      return;
     }
+
+    ctx.beginPath();
+    ctx.moveTo(xOffset, lineOffset);
+    ctx.lineTo((xOffset + tileSize), lineOffset);
+    ctx.stroke();
   }
 }
 
-registerPaint(paintName, Bumpy);
+registerPaint(paintName, MyBumps);

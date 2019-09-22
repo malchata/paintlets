@@ -11,7 +11,7 @@ class Parallelowow {
     return [
       `--${paintName}-tile-width`,
       `--${paintName}-base-color`,
-      `--${paintName}-color-decrement`,
+      `--${paintName}-color-step`,
       `--${paintName}-probability`,
       `--${paintName}-stroke-weight`,
     ];
@@ -27,7 +27,7 @@ class Parallelowow {
       this.adjustBrightness(properties.get(`--${paintName}-base-color`).toString(), -30)
     ];
 
-    const colorDecrement = parseInt(properties.get(`--${paintName}-color-decrement`));
+    const colorStep = parseInt(properties.get(`--${paintName}-color-step`));
     const probability = parseFloat(properties.get(`--${paintName}-probability`));
     const strokeWeight = parseFloat(properties.get(`--${paintName}-stroke-weight`));
     const geomTilesY = geom.height / tileHeight;
@@ -100,7 +100,7 @@ class Parallelowow {
       }
 
       // 4. Slightly darken colors for next run.
-      colors = colors.map(colorKey => this.adjustBrightness(colorKey, colorDecrement));
+      colors = colors.map(colorKey => this.adjustBrightness(colorKey, colorStep));
     }
   }
 

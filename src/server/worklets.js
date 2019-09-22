@@ -14,7 +14,7 @@ export default {
         syntax: "<color>",
         value: "#c9f"
       },
-      "color-decrement": {
+      "color-step": {
         syntax: "<integer>",
         value: -3
       },
@@ -28,7 +28,7 @@ export default {
       }
     }
   },
-  "eight-bit": {
+  bytemare: {
     author: {
       screenName: "malchata",
       website: "https://jeremy.codes/"
@@ -132,7 +132,7 @@ export default {
       }
     }
   },
-  bumpy: {
+  "my-bumps": {
     author: {
       screenName: "malchata",
       website: "https://jeremy.codes/"
@@ -153,7 +153,7 @@ export default {
       }
     }
   },
-  lines: {
+  slapdash: {
     author: {
       screenName: "malchata",
       website: "https://jeremy.codes/"
@@ -162,19 +162,19 @@ export default {
     customProperties: {
       "tile-size": {
         syntax: "<integer>",
-        value: 48
+        value: 64
       },
       color: {
         syntax: "<color>",
-        value: "#f0f"
+        value: "#e59eff"
       },
       weight: {
         syntax: "<number>",
-        value: 4
+        value: 3.0
       },
       probability: {
         syntax: "<number>",
-        value: 0.25
+        value: 0.166
       },
       direction: {
         syntax: "<integer>",

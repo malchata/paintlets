@@ -1,8 +1,8 @@
 /* global registerPaint */
 
-const paintName = "eight-bit";
+const paintName = "bytemare";
 
-class Towers {
+class Bytemare {
   constructor () {
     this.radians = (Math.PI / 180) * 45;
   }
@@ -78,4 +78,4 @@ class Towers {
   }
 }
 
-registerPaint(paintName, Towers);
+registerPaint(paintName, Bytemare);

@@ -1,11 +1,8 @@
 /* global registerPaint */
 
-const paintName = "lines";
+const paintName = "slapdash";
 
-class Lines {
-  constructor() {
-  }
-
+class Slapdash {
   static get inputProperties() {
     return [
       `--${paintName}-tile-size`,
@@ -18,7 +15,12 @@ class Lines {
   }
 
   paint (ctx, geom, properties) {
-    const tileSize = parseFloat(properties.get(`--${paintName}-tile-size`));
+    const tileSize = parseInt(properties.get(`--${paintName}-tile-size`));
+    const crosshatchTileSize = tileSize / 4;
+    const xTiles = geom.width / tileSize;
+    const xCrosshatchTiles = geom.width / crosshatchTileSize;
+    const yTiles = geom.height / tileSize;
+    const yCrosshatchTiles = geom.height / crosshatchTileSize;
     const color = properties.get(`--${paintName}-color`).toString();
     const weight = parseFloat(properties.get(`--${paintName}-weight`));
     const probability = parseFloat(properties.get(`--${paintName}-probability`));
@@ -31,21 +33,27 @@ class Lines {
     ctx.strokeStyle = color;
     ctx.lineCap = "butt";
 
-    for (let y = 0; y < (geom.height / tileSize); y++) {
-      for (let x = 0; x < (geom.width / tileSize); x++) {
+    for (let y = 0; y < yTiles; y++) {
+      const yOffset = y * tileSize;
+
+      for (let x = 0; x < xTiles; x++) {
         if (Math.random() >= probability) {
-          this.line(ctx, x, y, tileSize, direction);
+          const xOffset = x * tileSize;
+
+          this.line(ctx, xOffset, yOffset, tileSize, direction);
         }
       }
     }
 
     if (crosshatch) {
-      let crosshatchTilesize = tileSize / 4;
+      for (let y = 0; y < yCrosshatchTiles; y++) {
+        const yOffset = y * crosshatchTileSize;
 
-      for (let y = 0; y < (geom.height / crosshatchTilesize); y++) {
-        for (let x = 0; x < (geom.width / crosshatchTilesize); x++) {
+        for (let x = 0; x < xCrosshatchTiles; x++) {
           if (Math.random() >= crosshatchProbability) {
-            this.line(ctx, x, y, crosshatchTilesize, !direction);
+            const xOffset = x * crosshatchTileSize;
+
+            this.line(ctx, xOffset, yOffset, crosshatchTileSize, !direction);
           }
         }
       }
@@ -53,21 +61,18 @@ class Lines {
   }
 
   line (ctx, x, y, tileSize, direction) {
-    let xOffset = x * tileSize;
-    let yOffset = y * tileSize;
-
     ctx.beginPath();
 
     if (direction === false) {
-      ctx.moveTo(xOffset, yOffset);
-      ctx.lineTo(xOffset + tileSize, yOffset + tileSize);
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + tileSize, y + tileSize);
     } else {
-      ctx.moveTo(xOffset + tileSize, yOffset);
-      ctx.lineTo(xOffset, yOffset + tileSize);
+      ctx.moveTo(x + tileSize, y);
+      ctx.lineTo(x, y + tileSize);
     }
 
     ctx.stroke();
   }
 }
 
-registerPaint(paintName, Lines);
+registerPaint(paintName, Slapdash);
