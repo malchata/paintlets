@@ -57,7 +57,7 @@ app.listen(process.env.PORT || 8080, () => {
         ]
       };
 
-      if (renderCache.index === false) {
+      if ("index" in renderCache === false) {
         renderCache["index"] = html(metadata, "/", <Home worklets={worklets} />, JSON.parse(manifestData.toString()));
       }
 

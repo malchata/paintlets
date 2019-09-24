@@ -3,39 +3,36 @@
 const paintName = "blotto";
 
 class Blotto {
-  constructor () {
-    this.fullCircle = Math.PI * 2;
-  }
-
   static get inputProperties () {
     return [
       `--${paintName}-tile-size`,
       `--${paintName}-color`,
       `--${paintName}-amplitude`,
+      `--${paintName}-max-opacity`,
       `--${paintName}-blend-mode`
     ];
   }
 
   paint (ctx, geom, properties) {
     const tileSize = parseInt(properties.get(`--${paintName}-tile-size`));
+    const xTiles = geom.width / tileSize;
+    const yTiles = geom.height / tileSize;
     const amplitude = parseFloat(properties.get(`--${paintName}-amplitude`));
-    const geomTileHeight = geom.height / tileSize;
-    const geomTileWidth = geom.width / tileSize;
+    const maxOpacity = parseFloat(properties.get(`--${paintName}-max-opacity`));
+    const fullCircle = Math.PI * 2;
 
     ctx.fillStyle = properties.get(`--${paintName}-color`).toString();
     ctx.globalCompositeOperation = properties.get(`--${paintName}-blend-mode`).toString();
 
-    for (let y = 0; y < geomTileHeight; y++) {
+    for (let y = 0; y < yTiles; y++) {
       const yOffset = y * tileSize;
 
-      for (let x = 0; x < geomTileWidth; x++) {
-        const xOffset = x * tileSize;
-        const alpha = Math.random() % Math.random();
-        const radius = tileSize * Math.random() * amplitude;
+      for (let x = 0; x < xTiles; x++) {
+        const opacity = Math.random() % Math.random();
 
-        ctx.globalAlpha = alpha;
+        ctx.globalAlpha = opacity > maxOpacity ? maxOpacity : opacity;
         ctx.beginPath();
-        ctx.arc(xOffset, yOffset, radius, 0, this.fullCircle, false);
+        ctx.arc(x * tileSize, yOffset, tileSize * Math.random() * amplitude, 0, fullCircle);
         ctx.fill();
       }
     }

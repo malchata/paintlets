@@ -120,11 +120,15 @@ export default {
       },
       color: {
         syntax: "<color>",
-        value: "#e59eff"
+        value: "#6369d1"
       },
       amplitude: {
         syntax: "<number>",
         value: 2.25
+      },
+      "max-opacity": {
+        syntax: "<number>",
+        value: 1.0
       },
       "blend-mode": {
         syntax: "<custom-ident>",
@@ -132,7 +136,7 @@ export default {
       }
     }
   },
-  "my-bumps": {
+  bumpy: {
     author: {
       screenName: "malchata",
       website: "https://jeremy.codes/"
@@ -141,16 +145,20 @@ export default {
     customProperties: {
       "tile-size": {
         syntax: "<integer>",
-        value: 24
+        value: 32
       },
       thickness: {
         syntax: "<number>",
-        value: 1.5
+        value: 1.25
       },
       color: {
         syntax: "<color>",
         value: "#fffbfe"
-      }
+      },
+      probability: {
+        syntax: "<number>",
+        value: 0.33
+      },
     }
   },
   slapdash: {

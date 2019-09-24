@@ -3,10 +3,6 @@
 const paintName = "parallelowow";
 
 class Parallelowow {
-  constructor () {
-    this.radians = (Math.PI / 180) * 39.375;
-  }
-
   static get inputProperties () {
     return [
       `--${paintName}-tile-width`,
@@ -18,8 +14,11 @@ class Parallelowow {
   }
 
   paint (ctx, geom, properties) {
+    const radians = (Math.PI / 180) * 39.375;
     const tileWidth = parseInt(properties.get(`--${paintName}-tile-width`));
     const tileHeight = tileWidth * (1 / 4);
+    const yTiles = geom.height / tileHeight;
+    const xTiles = geom.width / tileWidth;
 
     let colors = [
       properties.get(`--${paintName}-base-color`).toString(),
@@ -30,23 +29,21 @@ class Parallelowow {
     const colorStep = parseInt(properties.get(`--${paintName}-color-step`));
     const probability = parseFloat(properties.get(`--${paintName}-probability`));
     const strokeWeight = parseFloat(properties.get(`--${paintName}-stroke-weight`));
-    const geomTilesY = geom.height / tileHeight;
-    const geomTilesX = geom.width / tileWidth;
     const outerRadius = geom.width > geom.height ? geom.width * 2 : geom.height * 2;
 
     if (strokeWeight > 0) {
       ctx.lineWidth = strokeWeight;
-      ctx.strokeStyle = colors[0];
+      ctx.strokeStyle = this.adjustBrightness(colors[0], 25);
       ctx.lineCap = "butt";
     }
 
-    for (let y = -1; y < geomTilesY; y++) {
+    for (let y = -1; y < yTiles; y++) {
       const yOffset = y * tileHeight;
 
-      for (let x = -1; x < (geomTilesX + y); x++) {
-        const xOffset = (x * tileWidth) - (y * tileHeight);
-
+      for (let x = -1; x < (xTiles + y); x++) {
         if (Math.random() > probability) {
+          const xOffset = (x * tileWidth) - (y * tileHeight);
+
           // Helpers!
           const upperLeftX = xOffset;
           const upperLeftY = yOffset;
@@ -61,7 +58,7 @@ class Parallelowow {
           ctx.fillStyle = colors[1];
           ctx.beginPath();
           ctx.moveTo(upperRightX, upperRightY);
-          ctx.lineTo((Math.cos(this.radians) * outerRadius), (Math.sin(this.radians) * outerRadius));
+          ctx.lineTo((Math.cos(radians) * outerRadius), (Math.sin(radians) * outerRadius));
           ctx.lineTo(lowerRightX, lowerRightY);
           ctx.lineTo(upperRightX, upperRightY);
           ctx.fill();
@@ -74,7 +71,7 @@ class Parallelowow {
           ctx.fillStyle = colors[2];
           ctx.beginPath();
           ctx.moveTo(lowerRightX, lowerRightY);
-          ctx.lineTo((Math.cos(this.radians) * outerRadius), (Math.sin(this.radians) * outerRadius));
+          ctx.lineTo((Math.cos(radians) * outerRadius), (Math.sin(radians) * outerRadius));
           ctx.lineTo(lowerLeftX, lowerLeftY);
           ctx.moveTo(lowerLeftX, lowerLeftY);
           ctx.fill();
@@ -107,7 +104,11 @@ class Parallelowow {
   adjustBrightness (rgbString, amt) {
     rgbString = rgbString.replace(/rgba?\(/g, "").replace(/\)/g, "").replace(/\s/g, "");
 
-    const rgbParts = rgbString.split(",").map(rgbPart => {
+    const rgbParts = rgbString.split(",").map((rgbPart, index) => {
+      if (index > 2) {
+        return;
+      }
+
       rgbPart = parseInt(rgbPart) + amt;
 
       if (rgbPart < 0) {
@@ -119,9 +120,7 @@ class Parallelowow {
       return rgbPart;
     });
 
-    console.log(rgbParts.join(","));
-
-    return `rgb(${rgbParts.join(",")})`;
+    return rgbString.indexOf("rgba") !== -1 ? `rgba(${rgbParts.join(",")})` : `rgb(${rgbParts.join(",")})`;
   }
 }
 

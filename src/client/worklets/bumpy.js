@@ -1,8 +1,8 @@
 /* global registerPaint */
 
-const paintName = "my-bumps";
+const paintName = "bumpy";
 
-class MyBumps {
+class Bumpy {
   static get inputProperties () {
     return [
       `--${paintName}-tile-size`,
@@ -16,6 +16,7 @@ class MyBumps {
     const tileSize = parseInt(properties.get(`--${paintName}-tile-size`));
     const thickness = parseFloat(properties.get(`--${paintName}-thickness`));
     const color = properties.get(`--${paintName}-color`).toString();
+    const probability = parseFloat(properties.get(`--${paintName}-probability`));
     const geomTileHeight = (geom.height * 2) / tileSize;
     const geomTileWidth = geom.width / tileSize;
 
@@ -24,17 +25,17 @@ class MyBumps {
 
     for (let y = 0; y < geomTileHeight; y++) {
       for (let x = 0; x < geomTileWidth; x++) {
-        this.drawStroke(ctx, tileSize, (x * tileSize), (y * (tileSize / 2)), thickness);
+        this.drawStroke(ctx, tileSize, (x * tileSize), (y * (tileSize / 2)), thickness, probability);
       }
     }
   }
 
-  drawStroke (ctx, tileSize, xOffset, yOffset, thickness) {
+  drawStroke (ctx, tileSize, xOffset, yOffset, thickness, probability) {
     const thirdTile = tileSize / 3;
     const quarterTile = tileSize / 4;
     const lineOffset = yOffset - (thickness / 2);
 
-    if (Math.random() >= .5) {
+    if (Math.random() >= probability) {
       ctx.beginPath();
       ctx.moveTo(xOffset, lineOffset);
       ctx.lineTo((xOffset + quarterTile), lineOffset);
@@ -68,4 +69,4 @@ class MyBumps {
   }
 }
 
-registerPaint(paintName, MyBumps);
+registerPaint(paintName, Bumpy);
