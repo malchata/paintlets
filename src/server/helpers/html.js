@@ -2,28 +2,16 @@
 import render from "preact-render-to-string";
 
 export default function (metadata, route, component, assets) {
-  let includeScript = Object.keys(assets).map(assetKey => `
-    ${assetKey}Script = document.createElement("script");
+  const scriptMarkup = Object.keys(assets).map(assetKey => `
+    <script type="module" src="${assets[assetKey].mjs}"></script>
+    <script nomodule defer src="${assets[assetKey].mjs}"></script>
+  `);
 
-    if ("noModule" in HTMLScriptElement.prototype) {
-      ${assetKey}Script.src = "${assets[assetKey].mjs}";
-      ${assetKey}Script.type = "module";
-    } else {
-      ${assetKey}Script.src = "${assets[assetKey].js}";
-      ${assetKey}Script.defer = true;
-    }
-
-    ${assetKey}Script.async = false;
-    document.body.appendChild(${assetKey}Script);
-  `).join("");
-
-  let htmlString = `
+  return `
     <!DOCTYPE html>
     <html class="no-js" lang="en" dir="ltr">
       <head>
-        <title>
-          ${metadata.title !== "Home" ? `${metadata.title} &mdash; ` : ""}Paintlets!
-        </title>
+        <title>${metadata.title !== "Home" ? `${metadata.title} &mdash; ` : ""}Paintlets!</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         ${metadata.metaTags.map(metaTag => `<meta${Object.keys(metaTag).map(metaTagAttribute => ` ${metaTagAttribute}="${metaTag[metaTagAttribute]}"`).join("")}>`).join("")}
@@ -31,17 +19,10 @@ export default function (metadata, route, component, assets) {
         <link rel="stylesheet" href="${assets.home.css}">
       </head>
       <body>
-        <main id="app">
-          ${render(component)}
-        </main>
-        <script>
-          (function(document) {
-            ${includeScript}
-          })(document);
-        </script>
+        <main id="app">${render(component)}</main>
+        <script defer src="https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver%2CIntersectionObserverEntry"></script>
+        ${scriptMarkup}
       </body>
     </html>
   `;
-
-  return htmlString;
 }

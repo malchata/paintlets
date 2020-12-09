@@ -1,4 +1,41 @@
 export default {
+  chemistreak: {
+    author: {
+      screenName: "malchata",
+      website: "https://jeremy.codes/"
+    },
+    backgroundColor: "#15112c",
+    customProperties: {
+      "tile-width": {
+        syntax: "<integer>",
+        value: 64
+      },
+      "stroke-weight": {
+        syntax: "<number>",
+        value: 0.833
+      },
+      "stroke-color": {
+        syntax: "<color>",
+        value: "#20a4f3"
+      },
+      "fill-color": {
+        syntax: "<color>",
+        value: "#ce6c47"
+      },
+      "stroke-probability": {
+        syntax: "<number>",
+        value: 0.666
+      },
+      "cap-probability": {
+        syntax: "<number>",
+        value: 0.75
+      },
+      "color-step": {
+        syntax: "<integer>",
+        value: -6
+      },
+    }
+  },
   parallelowow: {
     author: {
       screenName: "malchata",

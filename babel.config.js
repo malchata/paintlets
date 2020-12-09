@@ -29,8 +29,7 @@ module.exports = {
         [
           "@babel/preset-env", {
             modules: false,
-            loose: true,
-            targets: "> 0.25%, IE > 10, Firefox ESR, not dead"
+            loose: true
           }
         ],
         [

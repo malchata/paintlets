@@ -1,5 +1,4 @@
-import { h, render } from "preact";
-import hydrate from "../helpers/hydrate";
+import { h, hydrate } from "preact";
 import Home from "Components/Home";
 import worklets from "../../server/worklets";
 
